@@ -10,6 +10,7 @@ var {
   Text,
   Modal,
   StyleSheet,
+  TouchableWithoutFeedback,
 } = React;
 
 var PickerItemIOS = PickerIOS.Item;
@@ -35,11 +36,21 @@ var Dropdown = React.createClass({
           <Text style={[this.props.style]}>{this.state.label}</Text>
         </TouchableOpacity>
         <Modal
-          animated={false}
+          animated={true}
           transparent={true}
           visible={this.state.modalVisible}>
           <View style={styles.container}>
-            <View style={styles.innerContainer}>          
+            <TouchableWithoutFeedback onPress={this.onCancel}>
+              <View style={{flex:1}}></View>
+            </TouchableWithoutFeedback>
+            <View style={{justifyContent: 'flex-end', flexDirection: 'row', backgroundColor: '#F0F1F2'}}>
+              <TouchableOpacity 
+                  style={{padding: 13}}
+                  onPress={this.onOk}>
+                  <Text style={{color: '#0075FC',fontWeight:'bold'}}>Ok</Text>
+                </TouchableOpacity>
+            </View>    
+            <View style={styles.innerContainer}>   
               <PickerIOS
                 style={{}} 
                 selectedValue={this.state.selected}
@@ -55,14 +66,6 @@ var Dropdown = React.createClass({
                   )
                 }
               </PickerIOS>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={this.onOk} style={{flex:1, padding: 10}}>
-                  <Text style={{height: 40}} style={{textAlign:'center'}}>Ok</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.onCancel} style={{flex:1, padding: 10}}>
-                  <Text style={{height: 40}} style={{textAlign:'center'}}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
         </Modal>
@@ -94,14 +97,10 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
-    padding: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'transparent',
   },
   innerContainer: {
-    borderRadius: 10,
-    backgroundColor: '#fff', 
-    padding: 20,
-    paddingTop: 5,
+    backgroundColor: '#D1D5DA',
   },
   row: {
     alignItems: 'center',
