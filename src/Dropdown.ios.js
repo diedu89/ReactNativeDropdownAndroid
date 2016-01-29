@@ -23,12 +23,16 @@ var Dropdown = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(props){
+    this.setState({label: props.values[props.selected || 0]});
+  },
+
   render: function(){
     var _this = this;
     return (
-      <View style={{paddingTop: 20}}>
+      <View style={{}}>
         <TouchableOpacity onPress={this.onPress}>
-          <Text style={{height: 40}}>{this.state.label}</Text>
+          <Text style={[this.props.style]}>{this.state.label}</Text>
         </TouchableOpacity>
         <Modal
           animated={false}
@@ -37,7 +41,7 @@ var Dropdown = React.createClass({
           <View style={styles.container}>
             <View style={styles.innerContainer}>          
               <PickerIOS
-                style={[this.props.style]} 
+                style={{}} 
                 selectedValue={this.state.selected}
                 onValueChange={this.onChange}>
                 {this.props.values.map(function(text, index){
